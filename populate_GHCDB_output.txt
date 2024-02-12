@@ -1,0 +1,222 @@
+SQL> set echo on
+SQL> 
+SQL> 
+SQL> -- Delete existing table data (children first!)
+SQL> DELETE GHC_EXPERTISE;
+
+0 rows deleted.
+
+SQL> DELETE GHC_FACULTY;
+
+0 rows deleted.
+
+SQL> DELETE GHC_DEPARTMENT;
+
+0 rows deleted.
+
+SQL> DELETE GHC_COURSE;
+
+5 rows deleted.
+
+SQL> 
+SQL> -- Insert test data into tables (parents first)
+SQL> INSERT INTO GHC_COURSE (course_code, course_title, credits)
+  2  	 VALUES ('CMPS253', 'Interface Design', 3);
+
+1 row created.
+
+SQL> INSERT INTO GHC_COURSE (course_code, course_title, credits)
+  2  	 VALUES ('CPRG250', 'Database Design and Programming', 5);
+
+1 row created.
+
+SQL> INSERT INTO GHC_COURSE (course_code, course_title, credits)
+  2  	 VALUES ('CPRG251', 'Object Oriented Programming Essentials', 5);
+
+1 row created.
+
+SQL> INSERT INTO GHC_COURSE (course_code, course_title, credits)
+  2  	 VALUES ('CPRG302', 'Web Essentials', 3);
+
+1 row created.
+
+SQL> INSERT INTO GHC_COURSE (course_code, course_title, credits)
+  2  	 VALUES ('HREL250', 'Business Dynamics', 3);
+
+1 row created.
+
+SQL> 
+SQL> -- Save the changes
+SQL> COMMIT;
+
+Commit complete.
+
+SQL> 
+SQL> INSERT INTO GHC_DEPARTMENT (dept_no, dept_name)
+  2  	 VALUES (25, 'ITC');
+
+1 row created.
+
+SQL> INSERT INTO GHC_DEPARTMENT (dept_no, dept_name)
+  2  	 VALUES (26, 'Business');
+
+1 row created.
+
+SQL> 
+SQL> COMMIT;
+
+Commit complete.
+
+SQL> 
+SQL> INSERT INTO GHC_FACULTY (faculty_id, surname, firstname, date_hired, date_fired, is_active, dept_no)
+  2  	 VALUES (1294, 'Harris', 'Len', '2019-12-15', '', 1, 25);
+    VALUES (1294, 'Harris', 'Len', '2019-12-15', '', 1, 25)
+                                   *
+ERROR at line 2:
+ORA-01861: literal does not match format string 
+
+
+SQL> INSERT INTO GHC_FACULTY (faculty_id, surname, firstname, date_hired, date_fired, is_active, dept_no)
+  2  	 VALUES (1244, 'Lock', 'Sara', '2019-12-15', '2020-05-01', 1, 25);
+    VALUES (1244, 'Lock', 'Sara', '2019-12-15', '2020-05-01', 1, 25)
+                                  *
+ERROR at line 2:
+ORA-01861: literal does not match format string 
+
+
+SQL> INSERT INTO GHC_FACULTY (faculty_id, surname, firstname, date_hired, date_fired, is_active, dept_no)
+  2  	 VALUES (1948, 'Fischer', 'Jenny', '2021-05-15', '', 1, 26);
+    VALUES (1948, 'Fischer', 'Jenny', '2021-05-15', '',	1, 26)
+                                      *
+ERROR at line 2:
+ORA-01861: literal does not match format string 
+
+
+SQL> INSERT INTO GHC_FACULTY (faculty_id, surname, firstname, date_hired, date_fired, is_active, dept_no)
+  2  	 VALUES (7839, 'Wallbanger', 'Harvey', '2002-08-15', '',     1, 25);
+    VALUES (7839, 'Wallbanger', 'Harvey', '2002-08-15', '',	1, 25)
+                                          *
+ERROR at line 2:
+ORA-01861: literal does not match format string 
+
+
+SQL> 
+SQL> COMMIT;
+
+Commit complete.
+
+SQL> 
+SQL> INSERT INTO GHC_EXPERTISE(faculty_id, course_code)
+  2  	 VALUES(1294, 'CMPS253');
+INSERT INTO GHC_EXPERTISE(faculty_id, course_code)
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (CPRG250.SYS_GHC_EXPERT_FACULTY_FK) violated - 
+parent key not found 
+
+
+SQL> INSERT INTO GHC_EXPERTISE(faculty_id, course_code)
+  2  	 VALUES(1294, 'CPRG302');
+INSERT INTO GHC_EXPERTISE(faculty_id, course_code)
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (CPRG250.SYS_GHC_EXPERT_FACULTY_FK) violated - 
+parent key not found 
+
+
+SQL> INSERT INTO GHC_EXPERTISE(faculty_id, course_code)
+  2  	 VALUES(1294, 'CPRG251');
+INSERT INTO GHC_EXPERTISE(faculty_id, course_code)
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (CPRG250.SYS_GHC_EXPERT_FACULTY_FK) violated - 
+parent key not found 
+
+
+SQL> INSERT INTO GHC_EXPERTISE(faculty_id, course_code)
+  2  	 VALUES(1948, 'HREL250');
+INSERT INTO GHC_EXPERTISE(faculty_id, course_code)
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (CPRG250.SYS_GHC_EXPERT_FACULTY_FK) violated - 
+parent key not found 
+
+
+SQL> INSERT INTO GHC_EXPERTISE(faculty_id, course_code)
+  2  	 VALUES(7839, 'CPRG251');
+INSERT INTO GHC_EXPERTISE(faculty_id, course_code)
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (CPRG250.SYS_GHC_EXPERT_FACULTY_FK) violated - 
+parent key not found 
+
+
+SQL> INSERT INTO GHC_EXPERTISE(faculty_id, course_code)
+  2  	 VALUES(7839, 'CPRG250');
+INSERT INTO GHC_EXPERTISE(faculty_id, course_code)
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (CPRG250.SYS_GHC_EXPERT_FACULTY_FK) violated - 
+parent key not found 
+
+
+SQL> INSERT INTO GHC_EXPERTISE(faculty_id, course_code)
+  2  	 VALUES(7839, 'CMPS253');
+INSERT INTO GHC_EXPERTISE(faculty_id, course_code)
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (CPRG250.SYS_GHC_EXPERT_FACULTY_FK) violated - 
+parent key not found 
+
+
+SQL> INSERT INTO GHC_EXPERTISE(faculty_id, course_code)
+  2  	 VALUES(1244, 'HREL250');
+INSERT INTO GHC_EXPERTISE(faculty_id, course_code)
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (CPRG250.SYS_GHC_EXPERT_FACULTY_FK) violated - 
+parent key not found 
+
+
+SQL> INSERT INTO GHC_EXPERTISE(faculty_id, course_code)
+  2  	 VALUES(1244, 'CMPS253');
+INSERT INTO GHC_EXPERTISE(faculty_id, course_code)
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (CPRG250.SYS_GHC_EXPERT_FACULTY_FK) violated - 
+parent key not found 
+
+
+SQL> 
+SQL> COMMIT;
+
+Commit complete.
+
+SQL> 
+SQL> SELECT * FROM GHC_COURSE;
+
+COURSE_ COURSE_TITLE                                                    CREDITS 
+------- ------------------------------------------------------------ ---------- 
+CMPS253 Interface Design                                                      3 
+CPRG250 Database Design and Programming                                       5 
+CPRG251 Object Oriented Programming Essentials                                5 
+CPRG302 Web Essentials                                                        3 
+HREL250 Business Dynamics                                                     3 
+
+SQL> SELECT * FROM GHC_DEPARTMENT;
+
+   DEPT_NO DEPT_NAME                                                            
+---------- --------------------                                                 
+        25 ITC                                                                  
+        26 Business                                                             
+
+SQL> SELECT * FROM GHC_FACULTY;
+
+no rows selected
+
+SQL> SELECT * FROM GHC_EXPERTISE;
+
+no rows selected
+
+SQL> 
+SQL> spool off
