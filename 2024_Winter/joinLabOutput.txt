@@ -1,0 +1,92 @@
+SQL> 
+SQL> rem Q1
+SQL> 
+SQL> COLUMN FIRST_NAME FORMAT A12;
+SQL> COLUMN LAST_NAME FORMAT A12;
+SQL> COLUMN TOUR_DESCRIPTION FORMAT A22;
+SQL> COLUMN ORDER# FORMAT 910;
+SP2-0246: Illegal FORMAT string "910"
+SQL> COLUMN DEST_DESCRIPTION FORMAT A70;
+SQL> 
+SQL> BREAK ON FIRST_NAME ON TOUR_DESCRIPTION;
+SQL> 
+SQL> 
+SQL> 
+SQL> SELECT FIRST_NAME, LAST_NAME, TOUR_DESCRIPTION, ORDER#, DEST_DESCRIPTION
+  2  FROM RCV_CUSTOMER
+  3  JOIN RCV_TOUR_CUSTOMER USING(CUSTOMER_NUMBER)
+  4  JOIN RCV_VACATION_TOUR USING(TOUR_CODE)
+  5  JOIN RCV_TOUR_DESTINATION USING(TOUR_CODE)
+  6  JOIN RCV_DESTINATION USING(DEST_CODE)
+  7  WHERE FIRST_NAME='Sheldon' AND LAST_NAME='Cooper'
+  8  ORDER BY 3, 4;
+
+FIRST_NAME   LAST_NAME    TOUR_DESCRIPTION           ORDER# DEST_DESCRIPTION                                                         
+------------ ------------ ---------------------- ---------- ----------------------------------------------------------------------   
+Sheldon      Cooper       Calgary Highlights              1 Calgary City Sightseeing Tour                                            
+             Cooper                                       2 Sulfur Mountain Gondola and Banff Hot Springs                            
+             Cooper                                       3 Heritage Park - the 1883 experience                                      
+             Cooper       Calgary Stampede                1 Calgary Stampede - Chuckwagon Races and Grandstand Show                  
+             Cooper                                       2 Calgary Stampede - Day pass Rodeo                                        
+             Cooper                                       3 Calgary City Sightseeing Tour                                            
+             Cooper       Paris Highlights                1 Skip the Line Ticket: Eiffel Tower Summit Priority Access with Host      
+             Cooper                                       2 Gourmet Dinner & Sightseeing Cruise                                      
+             Cooper                                       3 Bateaux Parisiens Seine River Cruise                                     
+             Cooper                                       4 Disneyland Paris 1-Day Ticket                                            
+
+10 rows selected.
+
+SQL> 
+SQL> clear breaks
+SQL> 
+SQL> rem Q2
+SQL> 
+SQL> -- SELECT FIRST_NAME, LAST_NAME, TOUR_DESCRIPTION, ORDER#, DEST_DESCRIPTION
+SQL> -- FROM RCV_CUSTOMER
+SQL> -- 	 JOIN RCV_TOUR_CUSTOMER ON RCV_CUSTOMER.CUSTOMER_NUMBER = RCV_TOUR_CUSTOMER.CUSTOMER_NUMBER
+SQL> -- 	 JOIN RCV_VACATION_TOUR ON RCV_TOUR_CUSTOMER.TOUR_CODE = RCV_VACATION_TOUR.TOUR_CODE
+SQL> -- 	 JOIN RCV_TOUR_DESTINATION ON RCV_VACATION_TOUR.TOUR_CODE = RCV_TOUR_DESTINATION.TOUR_CODE
+SQL> -- 	 JOIN RCV_DESTINATION ON RCV_TOUR_DESTINATION.DEST_CODE = RCV_DESTINATION.DEST_CODE
+SQL> -- WHERE FIRST_NAME='Sheldon' AND LAST_NAME='Cooper'
+SQL> -- ORDER BY 3, 4;
+SQL> --
+SQL> -- CLEAR COLUMNS
+SQL> -- CLEAR BREAKS
+SQL> --
+SQL> -- rem Q3
+SQL> --
+SQL> -- COLUMN DEST_DESCRIPTION FORMAT A86;
+SQL> -- COLUMN FIRST_NAME FORMAT A20;
+SQL> -- COLUMN LAST_NAME FORMAT A22;
+SQL> --
+SQL> -- SELECT DISTINCT DEST_DESCRIPTION, FIRST_NAME, LAST_NAME
+SQL> -- FROM RCV_DESTINATION
+SQL> -- 	 LEFT JOIN RCV_TOUR_DESTINATION ON RCV_DESTINATION.DEST_CODE = RCV_TOUR_DESTINATION.DEST_CODE
+SQL> -- 	 LEFT JOIN RCV_VACATION_TOUR ON RCV_TOUR_DESTINATION.TOUR_CODE = RCV_VACATION_TOUR.TOUR_CODE
+SQL> -- 	 LEFT JOIN RCV_TOUR_CUSTOMER ON RCV_VACATION_TOUR.TOUR_CODE = RCV_TOUR_CUSTOMER.TOUR_CODE
+SQL> -- 	 LEFT JOIN RCV_CUSTOMER ON RCV_TOUR_CUSTOMER.CUSTOMER_NUMBER = RCV_CUSTOMER.CUSTOMER_NUMBER
+SQL> -- WHERE COUNTRY='Canada'
+SQL> -- ORDER BY DEST_DESCRIPTION, LAST_NAME;
+SQL> --
+SQL> -- CLEAR COLUMNS
+SQL> -- CLEAR BREAKS
+SQL> --
+SQL> -- rem Q4
+SQL> --
+SQL> --
+SQL> -- COLUMN FIRST_NAME FORMAT A15;
+SQL> -- COLUMN LAST_NAME FORMAT A20;
+SQL> --
+SQL> -- BREAK ON FIRST_NAME ON LAST_NAME;
+SQL> --
+SQL> -- SELECT FIRST_NAME, LAST_NAME, TRAINING_DESCRIPTION,
+SQL> --        DATE_COMPLETED AS "Date Comp"
+SQL> -- FROM RCV_AGENT
+SQL> -- NATURAL JOIN RCV_AGENT_TRAINING
+SQL> -- NATURAL JOIN RCV_TRAINING
+SQL> -- ORDER BY 1, 2, 3;
+SQL> --
+SQL> -- CLEAR COLUMNS
+SQL> -- CLEAR BREAKS
+SQL> 
+SQL> SPOOL OFF

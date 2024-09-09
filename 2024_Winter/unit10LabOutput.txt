@@ -1,0 +1,74 @@
+SQL> 
+SQL> rem Q1 - basic select columns with headers
+SQL> 
+SQL> SELECT FIRST_NAME, LAST_NAME FROM CPRG250.RCV_AGENT
+  2  				  WHERE AGENT_LEVEL='III' OR AGENT_LEVEL='IV'
+  3  				  ORDER BY LAST_NAME;
+
+FIRST_NAME LAST_NAME                                                                                                                                                                                    
+---------- ----------                                                                                                                                                                                   
+Anna       Chapman                                                                                                                                                                                      
+Valerie    Plume                                                                                                                                                                                        
+
+SQL> 
+SQL> CLEAR COLUMNS;
+SQL> 
+SQL> rem Q2
+SQL> 
+SQL> SELECT TOUR_DESCRIPTION FROM CPRG250.RCV_VACATION_TOUR
+  2  	      WHERE (RATING_CODE='E' OR RATING_CODE='M') AND
+  3  		    TOUR_DESCRIPTION LIKE '%Paris%'
+  4  	      ORDER BY	TOUR_DESCRIPTION;
+
+TOUR_DESCRIPTION                                                                                                                                                                                        
+--------------------------------------------------                                                                                                                                                      
+Paris Culture Tour                                                                                                                                                                                      
+Paris Highlights                                                                                                                                                                                        
+
+SQL> 
+SQL> CLEAR COLUMNS;
+SQL> 
+SQL> rem Q3
+SQL> 
+SQL> COLUMN DEST_DESCRIPTION FORMAT A82;
+SQL> 
+SQL> SELECT COUNTRY, DEST_DESCRIPTION FROM CPRG250.RCV_DESTINATION
+  2  				      WHERE COUNTRY='Canada' OR COUNTRY='United States'
+  3  				      ORDER BY COUNTRY, DEST_DESCRIPTION;
+
+COUNTRY                                            DEST_DESCRIPTION                                                                                                                                     
+-------------------------------------------------- ----------------------------------------------------------------------------------                                                                   
+Canada                                             2-Hour Horseback Trail Ride in Kananaskis                                                                                                            
+Canada                                             Blackshale Suspension Bridge & Sightseeing Tour                                                                                                      
+Canada                                             Calgary City Sightseeing Tour                                                                                                                        
+Canada                                             Calgary Stampede - Chuckwagon Races and Grandstand Show                                                                                              
+Canada                                             Calgary Stampede - Day pass Rodeo                                                                                                                    
+Canada                                             Calgary to Royal Tyrell Museum | Drumheller | Badland – Private Sightseeing Tour                                                                   
+Canada                                             Cycling the Bow                                                                                                                                      
+Canada                                             Heritage Park - the 1883 experience                                                                                                                  
+Canada                                             Lake Louise & Yoho N.P & Moraine Lake 1-Day Tour from Calgary or Banff                                                                               
+Canada                                             Rock climbing at COP                                                                                                                                 
+Canada                                             Rocky Mountaineer - 3 Day Train Adventure                                                                                                            
+Canada                                             Sulfur Mountain Gondola and Banff Hot Springs                                                                                                        
+Canada                                             Voyageur Canoe Tour                                                                                                                                  
+United States                                      ATV / UTV Riding - 28-Mile Jackrabbit Tour for 2 Riders                                                                                              
+United States                                      Beginner Group Rock Climbing in Joshua Tree National Park                                                                                            
+United States                                      Disneyland 2-Day Park Hopper Ticket                                                                                                                  
+United States                                      Earthquake Canyon Express Downhill Bicycle Adventure                                                                                                 
+United States                                      Modern & More Bike Tours Palm Springs                                                                                                                
+United States                                      Palm Springs Art Museum Guided Tour                                                                                                                  
+United States                                      Palm Springs On/Off City Tour                                                                                                                        
+United States                                      Palm Springs Windmill Tours                                                                                                                          
+United States                                      Private Dolphin and Whale Watching Tour in Newport Beach                                                                                             
+United States                                      Private French-Inspired Cooking Class with a Fun Local in Palm Springs, CA                                                                           
+United States                                      Private Surf Lesson Newport Beach, California                                                                                                        
+United States                                      San Andreas Fault Jeep Tour from Palm Desert                                                                                                         
+
+25 rows selected.
+
+SQL> 
+SQL> CLEAR COLUMNS;
+SQL> 
+SQL> rem insert solution here!
+SQL> 
+SQL> spool off

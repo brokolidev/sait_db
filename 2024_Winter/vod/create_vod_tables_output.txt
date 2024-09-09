@@ -1,0 +1,319 @@
+SQL> 
+SQL> -- Delete every bridge tables first
+SQL> DROP TABLE VOD_RENTAL_MOVIE PURGE;
+DROP TABLE VOD_RENTAL_MOVIE PURGE
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> DROP TABLE VOD_WISHLIST_MOVIE PURGE;
+DROP TABLE VOD_WISHLIST_MOVIE PURGE
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> DROP TABLE VOD_ADVISORY_MOVIE PURGE;
+DROP TABLE VOD_ADVISORY_MOVIE PURGE
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> DROP TABLE VOD_CATEGORY_MOVIE PURGE;
+DROP TABLE VOD_CATEGORY_MOVIE PURGE
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> DROP TABLE VOD_ACTOR_MOVIE PURGE;
+DROP TABLE VOD_ACTOR_MOVIE PURGE
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> DROP TABLE VOD_DIRECTOR_MOVIE PURGE;
+DROP TABLE VOD_DIRECTOR_MOVIE PURGE
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> 
+SQL> -- delete left tables
+SQL> DROP TABLE VOD_RENTAL PURGE;
+DROP TABLE VOD_RENTAL PURGE
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> DROP TABLE VOD_WISHLIST PURGE;
+DROP TABLE VOD_WISHLIST PURGE
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> DROP TABLE VOD_CUSTOMER PURGE;
+DROP TABLE VOD_CUSTOMER PURGE
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> DROP TABLE VOD_MOVIE PURGE;
+DROP TABLE VOD_MOVIE PURGE
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> DROP TABLE VOD_RATING PURGE;
+DROP TABLE VOD_RATING PURGE
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> DROP TABLE VOD_ADVISORY PURGE;
+DROP TABLE VOD_ADVISORY PURGE
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> DROP TABLE VOD_CATEGORY PURGE;
+DROP TABLE VOD_CATEGORY PURGE
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> DROP TABLE VOD_ACTOR PURGE;
+DROP TABLE VOD_ACTOR PURGE
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> DROP TABLE VOD_DIRECTOR PURGE;
+DROP TABLE VOD_DIRECTOR PURGE
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> 
+SQL> 
+SQL> -- create parents tables first
+SQL> 
+SQL> -- VOD_CUSTOMER
+SQL> CREATE TABLE VOD_CUSTOMER (
+  2  	 customer_id NUMBER NOT NULL,
+  3  	 first_name VARCHAR2(50) NOT NULL ,
+  4  	 last_name VARCHAR2(50) NOT NULL,
+  5  	 email VARCHAR2(100) NOT NULL CONSTRAINT sys_customer_email_UK UNIQUE,
+  6  	 credit_card_num NUMBER,
+  7  	 credit_card_type CHAR(2) CHECK (credit_card_type IN ('AX', 'MC', 'VS')),
+  8  	 address_province CHAR(2),
+  9  	 address_city VARCHAR2(50),
+ 10  	 address_street VARCHAR2(150),
+ 11  	 address_extra VARCHAR2(150),
+ 12  	 postal_code CHAR(6) CHECK (REGEXP_LIKE(postal_code, '[A-Z][0-9][A-Z][0-9][A-Z][0-9]')),
+ 13  	 is_email_valid NUMBER NOT NULL CHECK (is_email_valid IN (0, 1)),
+ 14  	 phone CHAR(12) NOT NULL CHECK (REGEXP_LIKE(phone, '^([0-9]{3})\\.([0-9]{3})\\.([0-9]{3})$')),
+ 15  	 CONSTRAINT sys_customer_PK PRIMARY KEY (customer_id)
+ 16  );
+
+Table created.
+
+SQL> 
+SQL> -- VOD_RENTAL
+SQL> CREATE TABLE VOD_RENTAL (
+  2  	 rental_id NUMBER NOT NULL,
+  3  	 customer_id NUMBER NOT NULL ,
+  4  	 customer_rating NUMBER(1) CHECK (customer_rating BETWEEN 1 and 5),
+  5  	 rented_date DATE NOT NULL,
+  6  	 viewing_date DATE,
+  7  	 expiry_date DATE,
+  8  	 credit_card_num NUMBER NOT NULL,
+  9  	 credit_card_type CHAR(2) NOT NULL CHECK (credit_card_type in ('AX', 'MC', 'VS')),
+ 10  	 paid_price NUMBER NOT NULL,
+ 11  	 CONSTRAINT sys_rental_viewing_date_CK CHECK (viewing_date > rented_date),
+ 12  	 CONSTRAINT sys_rental_expiry_date_CK CHECK (expiry_date > viewing_date),
+ 13  	 CONSTRAINT sys_cust_rent_FK FOREIGN KEY (customer_id) REFERENCES VOD_CUSTOMER (customer_id),
+ 14  	 CONSTRAINT sys_rental_PK PRIMARY KEY (rental_id)
+ 15  );
+
+Table created.
+
+SQL> 
+SQL> -- VOD_WISHLIST
+SQL> CREATE TABLE VOD_WISHLIST (
+  2  	 wishlist_id NUMBER NOT NULL,
+  3  	 customer_id NUMBER NOT NULL,
+  4  	 CONSTRAINT sys_cust_wish_FK FOREIGN KEY (customer_id) REFERENCES VOD_CUSTOMER (customer_id),
+  5  	 CONSTRAINT sys_wishlist_PK PRIMARY KEY (wishlist_id)
+  6  );
+
+Table created.
+
+SQL> 
+SQL> -- VOD_RATING
+SQL> CREATE TABLE VOD_RATING (
+  2  	 rating_id NUMBER NOT NULL,
+  3  	 rating_name CHAR(5) NOT NULL,
+  4  	 CONSTRAINT sys_rating_PK PRIMARY KEY (rating_id)
+  5  );
+
+Table created.
+
+SQL> 
+SQL> -- VOD_ADVISORY
+SQL> CREATE TABLE VOD_ADVISORY (
+  2  	 advisory_id NUMBER NOT NULL,
+  3  	 short_desc VARCHAR2(30) NOT NULL,
+  4  	 full_desc VARCHAR2(300) NOT NULL,
+  5  	 CONSTRAINT sys_advisory_PK PRIMARY KEY (advisory_id)
+  6  );
+
+Table created.
+
+SQL> 
+SQL> -- VOD_CATEGORY
+SQL> CREATE TABLE VOD_CATEGORY (
+  2  	 category_id NUMBER NOT NULL,
+  3  	 parent_category_id NUMBER NOT NULL,
+  4  	 category_name VARCHAR2(100) NOT NULL,
+  5  	 CONSTRAINT sys_cate_cate_FK FOREIGN KEY (parent_category_id)
+  6  	     REFERENCES VOD_CATEGORY (category_id)
+  7  		 ON DELETE CASCADE,
+  8  	 CONSTRAINT sys_category_PK PRIMARY KEY (category_id)
+  9  );
+
+Table created.
+
+SQL> 
+SQL> -- VOD_ACTOR
+SQL> CREATE TABLE VOD_ACTOR (
+  2  	 actor_id NUMBER NOT NULL,
+  3  	 first_name VARCHAR2(50) NOT NULL,
+  4  	 last_name VARCHAR2(50) NOT NULL,
+  5  	 date_of_birth DATE NOT NULL,
+  6  	 email VARCHAR2(100) NOT NULL CONSTRAINT sys_actor_email_UK UNIQUE,
+  7  	 CONSTRAINT sys_actor_PK PRIMARY KEY (actor_id)
+  8  );
+
+Table created.
+
+SQL> 
+SQL> -- VOD_DIRECTOR
+SQL> CREATE TABLE VOD_DIRECTOR (
+  2  	 director_id NUMBER NOT NULL,
+  3  	 first_name VARCHAR2(50) NOT NULL,
+  4  	 last_name VARCHAR2(50) NOT NULL,
+  5  	 date_of_birth DATE NOT NULL,
+  6  	 email VARCHAR2(100) NOT NULL CONSTRAINT sys_director_email_UK UNIQUE,
+  7  	 CONSTRAINT sys_director_PK PRIMARY KEY (director_id)
+  8  );
+
+Table created.
+
+SQL> 
+SQL> -- VOD_MOVIE
+SQL> CREATE TABLE VOD_MOVIE (
+  2  	 movie_id NUMBER NOT NULL,
+  3  	 rating_id NUMBER NOT NULL,
+  4  	 title VARCHAR2(250) NOT NULL,
+  5  	 duration NUMBER NOT NULL CHECK (duration > 0),
+  6  	 is_new_released NUMBER(1) CHECK (is_new_released in (0, 1)),
+  7  	 is_most_popular NUMBER(1) CHECK (is_most_popular in (0, 1)),
+  8  	 is_coming_soon NUMBER(1) CHECK (is_coming_soon in (0, 1)),
+  9  	 hd_price NUMBER NOT NULL,
+ 10  	 sd_price NUMBER NOT NULL,
+ 11  	 CONSTRAINT sys_rating_movie_FK FOREIGN KEY (rating_id) REFERENCES VOD_RATING (rating_id),
+ 12  	 CONSTRAINT sys_movie_PK PRIMARY KEY (movie_id)
+ 13  );
+
+Table created.
+
+SQL> 
+SQL> -- VOD_RENTAL_MOVIE
+SQL> CREATE TABLE VOD_RENTAL_MOVIE (
+  2  	 rental_id NUMBER NOT NULL,
+  3  	 movie_id NUMBER NOT NULL,
+  4  	 CONSTRAINT sys_rent_re_mv_FK FOREIGN KEY (rental_id) REFERENCES VOD_RENTAL (rental_id),
+  5  	 CONSTRAINT sys_movie_re_mv_FK FOREIGN KEY (movie_id) REFERENCES VOD_MOVIE (movie_id),
+  6  	 CONSTRAINT sys_rental_movie_PK PRIMARY KEY (rental_id, movie_id)
+  7  );
+
+Table created.
+
+SQL> 
+SQL> -- VOD_WISHLIST_MOVIE
+SQL> CREATE TABLE VOD_WISHLIST_MOVIE (
+  2  	 wishlist_id NUMBER NOT NULL,
+  3  	 movie_id NUMBER NOT NULL,
+  4  	 added_date DATE NOT NULL,
+  5  	 CONSTRAINT sys_wish_ws_mv_FK FOREIGN KEY (wishlist_id) REFERENCES VOD_WISHLIST (wishlist_id),
+  6  	 CONSTRAINT sys_movie_ws_mv_FK FOREIGN KEY (movie_id) REFERENCES VOD_MOVIE (movie_id),
+  7  	 CONSTRAINT sys_wishlist_movie_PK PRIMARY KEY (wishlist_id, movie_id)
+  8  );
+
+Table created.
+
+SQL> 
+SQL> -- VOD_ADVISORY_MOVIE
+SQL> CREATE TABLE VOD_ADVISORY_MOVIE (
+  2  	 advisory_id NUMBER NOT NULL,
+  3  	 movie_id NUMBER NOT NULL,
+  4  	 CONSTRAINT sys_advisory_ad_mv_FK FOREIGN KEY (advisory_id) REFERENCES VOD_ADVISORY (advisory_id),
+  5  	 CONSTRAINT sys_movie_ad_mv_FK FOREIGN KEY (movie_id) REFERENCES VOD_MOVIE (movie_id),
+  6  	 CONSTRAINT sys_advisory_movie_PK PRIMARY KEY (advisory_id, movie_id)
+  7  );
+
+Table created.
+
+SQL> 
+SQL> -- VOD_CATEGORY_MOVIE
+SQL> CREATE TABLE VOD_CATEGORY_MOVIE (
+  2  	 category_id NUMBER NOT NULL,
+  3  	 movie_id NUMBER NOT NULL,
+  4  	 CONSTRAINT sys_cate_ct_mv_FK FOREIGN KEY (category_id) REFERENCES VOD_CATEGORY (category_id),
+  5  	 CONSTRAINT sys_movie_ct_mv_FK FOREIGN KEY (movie_id) REFERENCES VOD_MOVIE (movie_id),
+  6  	 CONSTRAINT sys_category_movie_PK PRIMARY KEY (category_id, movie_id)
+  7  );
+
+Table created.
+
+SQL> 
+SQL> -- VOD_ACTOR_MOVIE
+SQL> CREATE TABLE VOD_ACTOR_MOVIE (
+  2  	 actor_id NUMBER NOT NULL,
+  3  	 movie_id NUMBER NOT NULL,
+  4  	 role_name VARCHAR2(50) NOT NULL,
+  5  	 CONSTRAINT sys_actor_at_mv_FK FOREIGN KEY (actor_id) REFERENCES VOD_ACTOR (actor_id),
+  6  	 CONSTRAINT sys_movie_at_mv_FK FOREIGN KEY (movie_id) REFERENCES VOD_MOVIE (movie_id),
+  7  	 CONSTRAINT sys_actor_movie PRIMARY KEY (actor_id, movie_id, role_name)
+  8  );
+
+Table created.
+
+SQL> 
+SQL> -- VOD_DIRECTOR_MOVIE
+SQL> CREATE TABLE VOD_DIRECTOR_MOVIE (
+  2  	 director_id NUMBER NOT NULL,
+  3  	 movie_id NUMBER NOT NULL,
+  4  	 CONSTRAINT sys_director_dr_mv_FK FOREIGN KEY (director_id) REFERENCES VOD_DIRECTOR (director_id),
+  5  	 CONSTRAINT sys_movie_dr_mv_FK FOREIGN KEY (movie_id) REFERENCES VOD_MOVIE (movie_id),
+  6  	 CONSTRAINT sys_director_movie_PK PRIMARY KEY (director_id, movie_id)
+  7  );
+
+Table created.
+
+SQL> 
+SQL> spool off;

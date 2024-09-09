@@ -1,0 +1,81 @@
+SQL> 
+SQL> rem Just Lee Database
+SQL> rem show customers and books they have ordered
+SQL> rem should return 32 rows
+SQL> select firstname, lastname, title
+  2  from customers natural join orders
+  3  	natural join orderitems
+  4  	natural join books
+  5  order by 2,1,3;
+
+FIRSTNAME  LASTNAME   TITLE                                                                                                         
+---------- ---------- ------------------------------                                                                                
+KENNETH    FALAH      COOKING WITH MUSHROOMS                                                                                        
+KENNETH    FALAH      PAINLESS CHILD-REARING                                                                                        
+TAMMY      GIANA      BIG BEAR AND LITTLE DOVE                                                                                      
+TAMMY      GIANA      DATABASE IMPLEMENTATION                                                                                       
+TAMMY      GIANA      E-BUSINESS THE EASY WAY                                                                                       
+TAMMY      GIANA      HOLY GRAIL OF ORACLE                                                                                          
+TAMMY      GIANA      REVENGE OF MICKEY                                                                                             
+CINDY      GIRARD     COOKING WITH MUSHROOMS                                                                                        
+CINDY      GIRARD     COOKING WITH MUSHROOMS                                                                                        
+CINDY      GIRARD     REVENGE OF MICKEY                                                                                             
+KENNETH    JONES      COOKING WITH MUSHROOMS                                                                                        
+JASMINE    LEE        DATABASE IMPLEMENTATION                                                                                       
+JAKE       LUCAS      HOW TO MANAGE THE MANAGER                                                                                     
+JAKE       LUCAS      PAINLESS CHILD-REARING                                                                                        
+JAKE       LUCAS      PAINLESS CHILD-REARING                                                                                        
+REESE      MCGOVERN   DATABASE IMPLEMENTATION                                                                                       
+GREG       MONTIASA   REVENGE OF MICKEY                                                                                             
+GREG       MONTIASA   SHORTEST POEMS                                                                                                
+BONITA     MORALES    BODYBUILD IN 10 MINUTES A DAY                                                                                 
+BONITA     MORALES    COOKING WITH MUSHROOMS                                                                                        
+BONITA     MORALES    COOKING WITH MUSHROOMS                                                                                        
+BONITA     MORALES    DATABASE IMPLEMENTATION                                                                                       
+BONITA     MORALES    DATABASE IMPLEMENTATION                                                                                       
+BECCA      NELSON     BIG BEAR AND LITTLE DOVE                                                                                      
+BECCA      NELSON     HANDCRANKED COMPUTERS                                                                                         
+BECCA      NELSON     PAINLESS CHILD-REARING                                                                                        
+BECCA      NELSON     REVENGE OF MICKEY                                                                                             
+THOMAS     PIERSON    COOKING WITH MUSHROOMS                                                                                        
+STEVE      SCHELL     BIG BEAR AND LITTLE DOVE                                                                                      
+JENNIFER   SMITH      DATABASE IMPLEMENTATION                                                                                       
+LEILA      SMITH      E-BUSINESS THE EASY WAY                                                                                       
+LEILA      SMITH      PAINLESS CHILD-REARING                                                                                        
+
+32 rows selected.
+
+SQL> 
+SQL> rem check Really Cheap Vacations DBA
+SQL> select first_name, last_name, tour_description
+  2  from rcv_customer join rcv_tour_customer using (customer_number)
+  3  	 join rcv_vacation_tour using (tour_code)
+  4  order by 1,2;
+
+FIRST_NAME                     LAST_NAME                      TOUR_DESCRIPTION                                                      
+------------------------------ ------------------------------ --------------------------------------------------                    
+Amy                            Folwer                         Calgary Stampede                                                      
+Amy                            Folwer                         European Vacation                                                     
+Amy                            Folwer                         Sights of Barcelona                                                   
+Amy                            Folwer                         Calgary Highlights                                                    
+Amy                            Folwer                         France in 4 Days                                                      
+Bernadette                     Rostenkowski-Wolowitz          Palm Springs Highlights                                               
+Bernadette                     Rostenkowski-Wolowitz          Palm Springs Adventure                                                
+Bernadette                     Rostenkowski-Wolowitz          Calgary Stampede                                                      
+Lionel                         Messie                         Paris Culture Tour                                                    
+Lionel                         Messie                         Rocky Mountain Experience                                             
+Lionel                         Messie                         Paris Highlights                                                      
+Penny                          Hofstadter                     Paris Highlights                                                      
+Penny                          Hofstadter                     Calgary Stampede                                                      
+Penny                          Hofstadter                     Calgary Highlights                                                    
+Raj                            Koothrappali                   Palm Springs Highlights                                               
+Raj                            Koothrappali                   Palm Springs Adventure                                                
+Raj                            Koothrappali                   Calgary Stampede                                                      
+Sheldon                        Cooper                         Calgary Stampede                                                      
+Sheldon                        Cooper                         Calgary Highlights                                                    
+Sheldon                        Cooper                         Paris Highlights                                                      
+
+20 rows selected.
+
+SQL> 
+SQL> spool off
