@@ -3,6 +3,7 @@
   <component name="SqlDialectMappings">
     <file url="file://$PROJECT_DIR$/res/Create_CPRG307_Users.sql" dialect="Oracle" />
     <file url="file://$PROJECT_DIR$/res/Create_MM.sql" dialect="Oracle" />
+    <file url="file://$PROJECT_DIR$/res/create_emp.sql" dialect="Oracle" />
     <file url="PROJECT" dialect="OracleSqlPlus" />
   </component>
 </project>
