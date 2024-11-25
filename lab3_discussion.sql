@@ -1,16 +1,8 @@
---
--- -- 프레지던트 샐러리 상한
--- select (SALARY  * 0.75) as PRESIDENT_MAXIMUM from EMP_EMPLOYEE where JOB='PRESIDENT';
---
--- -- 기존 샐러리가 프레지던트 샐러리(5000) 보다 높은 경우
--- -- 절반을 깎은 뒤에 프레지던트 샐러리 상한과 비교하여 낮은 값을 적용한다
--- select * from EMP_EMPLOYEE where SALARY > 5000.00;
---
--- -- 100보다 낮은 직원들은 10% 올려주되, 모든직원들의 평균보다 높지 않아야 한다.
--- select SALARY, (SALARY * 1.1) as NEW_SALARY from EMP_EMPLOYEE where SALARY < 100.00;
--- select AVG(SALARY) as AVG_SALARY from EMP_EMPLOYEE;
---
--- select * from EMP_EMPLOYEE where COMMISSION IS NOT NULL AND COMMISSION > 0;
+/* *****************************************************************
+** Author:  Hyunseung Choi
+** Creation Date:  November 24, 2024
+**
+*******************************************************************/
 
 
 DECLARE
