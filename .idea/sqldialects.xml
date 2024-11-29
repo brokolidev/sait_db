@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/assignment3.sql" dialect="OracleSqlPlus" />
     <file url="file://$PROJECT_DIR$/lab4.sql" dialect="OracleSqlPlus" />
+    <file url="file://$PROJECT_DIR$/res/Assignment 3 Part 1 Scripts/A3_test dataset_1 - Clean.sql" dialect="Oracle" />
+    <file url="file://$PROJECT_DIR$/res/Assignment 3 Part 1 Scripts/constraints_wkis.sql" dialect="Oracle" />
+    <file url="file://$PROJECT_DIR$/res/Assignment 3 Part 1 Scripts/create_wkis.sql" dialect="Oracle" />
+    <file url="file://$PROJECT_DIR$/res/Assignment 3 Part 1 Scripts/load_wkis.sql" dialect="Oracle" />
     <file url="file://$PROJECT_DIR$/res/Modified ATA Scripts for Lab 4/constraints_ata.sql" dialect="Oracle" />
     <file url="file://$PROJECT_DIR$/res/Modified ATA Scripts for Lab 4/create_ata.sql" dialect="Oracle" />
     <file url="file://$PROJECT_DIR$/res/Modified ATA Scripts for Lab 4/load_ata.sql" dialect="Oracle" />
