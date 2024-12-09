@@ -10,5 +10,10 @@
     <file url="file://$PROJECT_DIR$/res/Modified ATA Scripts for Lab 4/constraints_ata.sql" dialect="Oracle" />
     <file url="file://$PROJECT_DIR$/res/Modified ATA Scripts for Lab 4/create_ata.sql" dialect="Oracle" />
     <file url="file://$PROJECT_DIR$/res/Modified ATA Scripts for Lab 4/load_ata.sql" dialect="Oracle" />
+    <file url="file://$PROJECT_DIR$/res/WGL/constraints_wgl.sql" dialect="Oracle" />
+    <file url="file://$PROJECT_DIR$/res/WGL/create_wgl.sql" dialect="Oracle" />
+    <file url="file://$PROJECT_DIR$/res/WGL/load_wgl.sql" dialect="Oracle" />
+    <file url="file://$PROJECT_DIR$/res/WGL/new_books.sql" dialect="Oracle" />
+    <file url="file://$PROJECT_DIR$/res/WGL/newbookserrorlog.sql" dialect="Oracle" />
   </component>
 </project>
